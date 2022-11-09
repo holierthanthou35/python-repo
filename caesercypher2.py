@@ -28,8 +28,13 @@ def caeser(message, shift, direction):
         if letter in letter_list:
             position = letter_list.index(letter)
             new_pos = position + shift
-            new_letter = letter_list[new_pos]
-            end_msg += new_letter
+            if new_pos > 26:
+                new_pos -= 26
+                new_letter = letter_list[new_pos]
+                enc_msg += new_letter
+            else:
+                new_letter = letter_list[new_pos]
+                end_msg += new_letter
         else:
             end_msg += letter
     print(f"your {direction}ed message is {end_msg}.")
