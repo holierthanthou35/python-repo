@@ -2,33 +2,77 @@ import random
 
 cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
+
+def cardgen(card_list):
+    card = random.choice(cards)
+    card_list.append(card)
+
+
 player_hand = []
+# player_score = sum(player_hand)
 computer_hand = []
+# comp_score = sum(computer_hand)
+end = False
 
-start = input("should we start the game? y or n :").lower()
+while not end:
+    start = input("should we start the game? y or n: ").lower()
+    if start == "y":
+        cardgen(player_hand)
+        cardgen(player_hand)
+        print(player_hand)
 
-if start == "y":
-    cardp1 = cards[random.randint(0, len(cards))]
-    cardp2 = cards[random.randint(0, len(cards))]
+        cardgen(computer_hand)
+        print(computer_hand)
 
-    player_hand.append([cardp1, cardp2])
+        if sum(player_hand) == 21:
+            print('YOU WON!!!')
+            end = True
+        else:
+            end_2 = False
+            while not end_2:
+                hit_or_stand = input("Do you want to hit or stand? ")
 
-    cardc1 = cards[random.randint(0, len(cards))]
-    cardc2 = cards[random.randint(0, len(cards))]
+                if hit_or_stand == "hit":
+                    cardgen(player_hand)
+                    print(player_hand)
 
-    computer_hand.append([cardc1])
+                    if sum(player_hand) > 21:
+                        print("This is a BUST!!!")
+                        end = True
+                        end_2 = True
 
-    print(f"player's hand {player_hand}")
-    print(f"computer's hand {computer_hand}")
+                    elif sum(player_hand) == 21:
+                        print('YOU WON!!!')
+                        end = True
+                        end_2 = True
 
-    player_hand_sum = sum(player_hand)
-    comp_hand_sum = sum(computer_hand)
+                elif hit_or_stand == "stand":
+                    cardgen(computer_hand)
+                    print(player_hand)
 
-    if player_hand_sum == 21:
-        
-    pull = input("do you want to hit or stand? y or n")
+                    print(computer_hand)
 
-    if pull == "y":
-        cardp3 = cards[random.randint(0, len(cards))]
+                    if sum(player_hand) > sum(computer_hand):
+                        print("YOU WON!!!")
+                        end = True
+                        end_2 = True
 
-        player_hand.append(cardp3)
+                    elif sum(player_hand) < sum(computer_hand):
+                        print("Dealer wins")
+                        end = True
+                        end_2 = True
+
+                    else:
+                        print("this is a draw.")
+                        end = True
+                        end_2 = True
+
+                else:
+                    print("Try typing 'hit' or 'stand' to continue game.")
+
+    elif start == "n":
+        end = True
+
+    else:
+        print("Try a valid input")
+
