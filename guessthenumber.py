@@ -48,4 +48,4 @@ while not game_end:
     initiator()
     win()
     other_situations()
-    print(lives)
+    print(f"you have {lives} lives left")
